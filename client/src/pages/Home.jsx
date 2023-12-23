@@ -4,11 +4,12 @@ import {
   CustomButton,
   FriendsCard,
   Loading,
+  PostCard,
   ProfileCard,
   TextInput,
   TopBar,
 } from "../components";
-import { suggest, requests } from "../assets/data";
+import { suggest, requests, posts } from "../assets/data";
 import { Link } from "react-router-dom";
 import { NoProfile } from "../assets";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
@@ -22,6 +23,8 @@ const Home = () => {
   const [errMsg, setErrMsg] = useState("");
   const [file, setFile] = useState(null);
   const [posting, setPosting] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -138,6 +141,24 @@ const Home = () => {
               </div>
             </div>
           </form>
+
+          {loading ? (
+            <Loading />
+          ) : posts?.length > 0 ? (
+            posts.map((post) => (
+              <PostCard
+                key={post?._id}
+                post={post}
+                user={user}
+                delete={() => {}}
+                likePost={() => {}}
+              />
+            ))
+          ) : (
+            <div className="flex w-full h-full items-center justify-center">
+              <p className="text-lg text-ascent-2">No Posts Available</p>
+            </div>
+          )}
         </div>
 
         {/* RIGHT */}
