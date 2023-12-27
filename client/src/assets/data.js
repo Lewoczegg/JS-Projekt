@@ -1,6 +1,6 @@
 export const user = {
   _id: "64df3c064180b81adfe41d4b",
-  firstName: "Matesz",
+  firstName: "Mateusz",
   lastName: "Lewocz",
   email: "codewavewithasante@gmail.com",
   friends: [
