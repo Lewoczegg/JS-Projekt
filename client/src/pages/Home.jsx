@@ -153,7 +153,7 @@ const Home = () => {
                   key={post?._id}
                   post={post}
                   user={user}
-                  delete={() => {}}
+                  deletePost={() => {}}
                   likePost={() => {}}
                 />
               ))
