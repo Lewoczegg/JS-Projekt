@@ -168,3 +168,36 @@ export const changePassword = async (req, res, next) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const getUser = async (req, res, next) => {
+  try {
+    const { userId } = req.body.user;
+    const { id } = req.params;
+
+    const user = await Users.findById(id ?? userId).populate({
+      path: "friends",
+      select: "-password",
+    });
+
+    if (!user) {
+      return res.status(200).send({
+        message: "User Not Found",
+        success: false,
+      });
+    }
+
+    user.password = undefined;
+
+    res.status(200).json({
+      success: true,
+      user: user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "auth error",
+      success: false,
+      error: error.message,
+    });
+  }
+};
