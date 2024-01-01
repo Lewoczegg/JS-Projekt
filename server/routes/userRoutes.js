@@ -1,7 +1,10 @@
 import express from "express";
 import path from "path";
 import {
+  acceptRequest,
   changePassword,
+  friendRequest,
+  getFriendRequest,
   getUser,
   requestPasswordReset,
   resetPassword,
@@ -23,6 +26,13 @@ router.post("/reset-password", changePassword);
 // USER ROUTES
 router.post("/get-user/:id?", userAuth, getUser);
 router.put("/update-user", userAuth, updateUser);
+
+// FRIEND REQUEST
+router.post("/friend-request", userAuth, friendRequest);
+router.post("/get-friend-request", userAuth, getFriendRequest);
+
+// ACCEPT / DENY FRIEND REUEST
+router.post("/accept-request", userAuth, acceptRequest);
 
 router.get("/verified", (req, res) => {
   res.sendFile(path.join(__dirname, "./views/build", "index.html"));
