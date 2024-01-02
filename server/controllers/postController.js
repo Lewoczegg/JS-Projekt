@@ -1,3 +1,4 @@
+import Comments from "../models/commentModel.js";
 import Posts from "../models/postModel.js";
 import Users from "../models/userModel.js";
 
@@ -17,7 +18,7 @@ export const createPost = async (req, res, next) => {
       image,
     });
 
-    res.status(200).json({
+    res.status(201).json({
       sucess: true,
       message: "Post created successfully",
       data: post,
@@ -114,6 +115,32 @@ export const getUserPosts = async (req, res, next) => {
       sucess: true,
       message: "successfully",
       data: post,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getComments = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+
+    const postComments = await Comments.find({ postId })
+      .populate({
+        path: "userId",
+        select: "firstName lastName location profileUrl -password",
+      })
+      .populate({
+        path: "replies.userId",
+        select: "firstName lastName location profileUrl -password",
+      })
+      .sort({ _id: -1 });
+
+    res.status(200).json({
+      sucess: true,
+      message: "successfully",
+      data: postComments,
     });
   } catch (error) {
     console.log(error);
