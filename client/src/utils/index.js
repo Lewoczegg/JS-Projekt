@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SetPosts } from "../redux/postSlice";
 
 const API_URL = "http://localhost:8800";
 
@@ -23,5 +24,42 @@ export const apiRequest = async ({ url, token, data, method }) => {
     const err = error.response.data;
     console.log(err);
     return { status: err.success, message: err.message };
+  }
+};
+
+export const handleFileUpload = async (uploadFile) => {
+  const formData = new FormData();
+  formData.append("file", uploadFile);
+  formData.append("upload_preset", "socialmedia");
+  formData.append("api_key", process.env.REACT_APP_CLOUDINARY_KEY);
+
+  console.log("ID", process.env.REACT_APP_CLOUDINARY_KEY);
+  console.log("KEY", process.env.REACT_APP_CLOUDINARY_ID);
+
+  try {
+    const response = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload/`,
+      formData
+    );
+    console.log(response);
+    return response.data.secure_url;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchPosts = async (token, dispatch, uri, data) => {
+  try {
+    const res = await apiRequest({
+      url: uri || "/posts",
+      token: token,
+      method: "GET",
+      data: data || {},
+    });
+
+    dispatch(SetPosts(res?.data));
+    return;
+  } catch (error) {
+    console.log(error);
   }
 };
