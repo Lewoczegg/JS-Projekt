@@ -64,7 +64,7 @@ export const sendVerificationEmail = async (user, res) => {
         .sendMail(mailOptions)
         .then(() => {
           res.status(201).send({
-            success: "PENDING",
+            status: "PENDING",
             message:
               "Verification email has been sent to your account. Check your email for further instructions.",
           });
