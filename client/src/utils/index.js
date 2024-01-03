@@ -33,15 +33,11 @@ export const handleFileUpload = async (uploadFile) => {
   formData.append("upload_preset", "socialmedia");
   formData.append("api_key", process.env.REACT_APP_CLOUDINARY_KEY);
 
-  console.log("ID", process.env.REACT_APP_CLOUDINARY_KEY);
-  console.log("KEY", process.env.REACT_APP_CLOUDINARY_ID);
-
   try {
     const response = await axios.post(
       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload/`,
       formData
     );
-    console.log(response);
     return response.data.secure_url;
   } catch (error) {
     console.log(error);

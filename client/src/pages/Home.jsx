@@ -46,7 +46,7 @@ const Home = () => {
       const newData = uri ? { ...data, image: uri } : data;
 
       const res = await apiRequest({
-        url: "posts/create-post",
+        url: "/posts/create-post",
         data: newData,
         token: user?.token,
         method: "POST",
