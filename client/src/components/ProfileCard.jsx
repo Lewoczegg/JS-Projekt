@@ -85,7 +85,7 @@ const ProfileCard = ({ user }) => {
           <div className="flex items-center justify-between">
             <span className="text-ascent-2">Joined</span>
             <span className="text-ascent-1 text-base">
-              {moment(user?.currentAt).fromNow()}
+              {moment(user?.createdAt).fromNow()}
             </span>
           </div>
         </div>
