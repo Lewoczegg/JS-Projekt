@@ -47,9 +47,9 @@ export const handleFileUpload = async (uploadFile) => {
 export const fetchPosts = async (token, dispatch, uri, data) => {
   try {
     const res = await apiRequest({
-      url: uri || "/posts",
+      url: uri || "/posts/",
       token: token,
-      method: "GET",
+      method: "POST",
       data: data || {},
     });
 

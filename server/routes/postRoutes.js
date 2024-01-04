@@ -19,9 +19,9 @@ const router = express.Router();
 router.post("/create-post", userAuth, createPost);
 
 // GET POSTS
-router.get("/", userAuth, getPosts);
-router.get("/:id", userAuth, getPost);
-router.get("/get-user-post/:id", userAuth, getUserPosts);
+router.post("/", userAuth, getPosts);
+router.post("/:id", userAuth, getPost);
+router.post("/get-user-post/:id", userAuth, getUserPosts);
 
 // GET COMMENTS
 router.get("/comments/:postId", getComments);
